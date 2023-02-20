@@ -1,0 +1,58 @@
+import features from "../data/features";
+import MapboxImg from "../assets/img/mockup-map-presentation.png";
+import CalendarImg from "../assets/img/mockup-calendar-presentation.png";
+import ReactMockupImg from "../assets/img/react-mockup.png";
+import BS5IllustrationsImg from "../assets/img/illustrations/bs5-illustrations.svg";
+import BS5Logo from "../assets/img/technologies/bootstrap-5-logo.svg";
+import ReactLogo from "../assets/img/technologies/react-logo.svg";
+import ThemesbergLogo from "../assets/img/themesberg-logo.svg";
+import Code from "../components/CodeEditor";
+import Code from "../components/CodeEditor";
+<Dropdown.Divider className="my-3 border-indigo" />
+
+
+
+import { Form, Button } from 'react-bootstrap';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+
+const validationSchema = Yup.object({
+  name: Yup.string().required('Name is required'),
+  email: Yup.string().email('Invalid email address').required('Email is required'),
+  password: Yup.string().required('Password is required'),
+});
+
+const MyForm = () => {
+  const formik = useFormik({
+    initialValues: {
+      name: '',
+      email: '',
+      password: '',
+    },
+    validationSchema,
+    onSubmit: values => {
+      // Handle form submission
+    },
+  });
+
+  return (
+    <Form onSubmit={formik.handleSubmit}>
+      <Form.Group>
+        <Form.Label>Name</Form.Label>
+        <Form.Control type="text" name="name" value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+        {formik.touched.name && formik.errors.name ? <div className="text-danger">{formik.errors.name}</div> : null}
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Email</Form.Label>
+        <Form.Control type="email" name="email" value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+        {formik.touched.email && formik.errors.email ? <div className="text-danger">{formik.errors.email}</div> : null}
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Password</Form.Label>
+        <Form.Control type="password" name="password" value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} />
+        {formik.touched.password && formik.errors.password ? <div className="text-danger">{formik.errors.password}</div> : null}
+      </Form.Group>
+      <Button type="submit">Submit</Button>
+    </Form>
+  );
+};
