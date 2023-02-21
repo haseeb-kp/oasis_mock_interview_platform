@@ -37,10 +37,13 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'admins.apps.AdminsConfig',
+    'candidate.apps.CandidateConfig',
+    'interviewer.apps.InterviewerConfig',
+
     'rest_framework',
-    'admins',
-    'candidate',
-    'interviewer',
+
 ]
 
 AUTH_USER_MODEL = 'candidate.CustomUser'

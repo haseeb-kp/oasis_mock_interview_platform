@@ -37,3 +37,7 @@ class UserList(generics.ListAPIView):
     # permission_classes = [IsAdminUser]
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+class signup(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer

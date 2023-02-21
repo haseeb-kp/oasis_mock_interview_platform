@@ -1,49 +1,171 @@
-
 import React from "react";
+import { useFormik, Field } from "formik";
+import * as Yup from "yup";
+import "yup-phone";
+import GoogleButton from "react-google-button";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faAngleLeft, faEnvelope, faUnlockAlt } from "@fortawesome/free-solid-svg-icons";
-import { faFacebookF, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
-import { Col, Row, Form, Card, Button, FormCheck, Container, InputGroup } from '@themesberg/react-bootstrap';
-import { Link } from 'react-router-dom';
+import {
+  faAngleLeft,
+  faEnvelope,
+  faMobile,
+  faUnlockAlt,
+  faUser,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebookF,
+  faGithub,
+  faTwitter,
+} from "@fortawesome/free-brands-svg-icons";
+import {
+  Col,
+  Row,
+  Form,
+  Card,
+  Button,
+  FormCheck,
+  Container,
+  InputGroup,
+} from "@themesberg/react-bootstrap";
+import { Link } from "react-router-dom";
 
 import { Routes } from "../../routes";
 import BgImage from "../../assets/img/illustrations/signin.svg";
 
+const validationSchema = Yup.object().shape({
+  name: Yup.string()
+    .required("Name is required")
+    .min(4, "must be at least 4 characters long"),
+  // phone: Yup.string()
+  //   .phone('IN',true,"Invalid Phone number")
+  //   .required(" Phone number is required"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
+  password: Yup.string()
+    .required("Password is required")
+    .min(4, "must be at least 4 characters long"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password"), null], "Passwords must match")
+    .required("Confirm Password is required"),
+});
 
-export default () => {
+const Signup = () => {
+  const formik = useFormik({
+    initialValues: {
+      name: "",
+      phone: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema,
+    onSubmit: (values) => {
+      
+
+    },
+  });
+
   return (
     <main>
       <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
         <Container>
-          <p className="text-center">
-            <Card.Link as={Link} to={Routes.DashboardOverview.path} className="text-gray-700">
-              <FontAwesomeIcon icon={faAngleLeft} className="me-2" /> Back to homepage
-            </Card.Link>
-          </p>
-          <Row className="justify-content-center form-bg-image" style={{ backgroundImage: `url(${BgImage})` }}>
-            <Col xs={12} className="d-flex align-items-center justify-content-center">
+          <Row
+            className="justify-content-center form-bg-image"
+            style={{ backgroundImage: `url(${BgImage})` }}
+          >
+            <Col
+              xs={12}
+              className="d-flex align-items-center justify-content-center"
+            >
               <div className="mb-4 mb-lg-0 bg-white shadow-soft border rounded border-light p-4 p-lg-5 w-100 fmxw-500">
                 <div className="text-center text-md-center mb-4 mt-md-0">
                   <h3 className="mb-0">Create an account</h3>
                 </div>
-                <Form className="mt-4">
+
+                <Form onSubmit={formik.handleSubmit} className="mt-4">
+                  <Form.Group id="name" className="mb-4">
+                    <Form.Label>Name</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text>
+                        <FontAwesomeIcon icon={faUser} />
+                      </InputGroup.Text>
+                      <Form.Control
+                        autoFocus
+                        type="text"
+                        placeholder="Enter your name"
+                        name="name"
+                        value={formik.values.name}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                    </InputGroup>
+                    {formik.touched.name && formik.errors.name ? (
+                      <div className="text-danger">{formik.errors.name}</div>
+                    ) : null}
+                  </Form.Group>
+
+                  <Form.Group id="phone" className="mb-4">
+                    <Form.Label>Phone number</Form.Label>
+                    <InputGroup>
+                      <InputGroup.Text>
+                        <FontAwesomeIcon icon={faMobile} />
+                      </InputGroup.Text>
+                      <Form.Control
+                        autoFocus
+                        type="number"
+                        placeholder="Enter your Phone number"
+                        name="phone"
+                        value={formik.values.phone}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                    </InputGroup>
+                    {formik.touched.phone && formik.errors.phone ? (
+                      <div className="text-danger">{formik.errors.phone}</div>
+                    ) : null}
+                  </Form.Group>
+
                   <Form.Group id="email" className="mb-4">
-                    <Form.Label>Your Email</Form.Label>
+                    <Form.Label>Email</Form.Label>
                     <InputGroup>
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faEnvelope} />
                       </InputGroup.Text>
-                      <Form.Control autoFocus required type="email" placeholder="example@company.com" />
+                      <Form.Control
+                        autoFocus
+                        type="email"
+                        placeholder="example@company.com"
+                        name="email"
+                        value={formik.values.email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
                     </InputGroup>
+                    {formik.touched.email && formik.errors.email ? (
+                      <div className="text-danger">{formik.errors.email}</div>
+                    ) : null}
                   </Form.Group>
                   <Form.Group id="password" className="mb-4">
-                    <Form.Label>Your Password</Form.Label>
+                    <Form.Label>Password</Form.Label>
                     <InputGroup>
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faUnlockAlt} />
                       </InputGroup.Text>
-                      <Form.Control required type="password" placeholder="Password" />
+                      <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        name="password"
+                        value={formik.values.password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
                     </InputGroup>
+                    {formik.touched.password && formik.errors.password ? (
+                      <div className="text-danger">
+                        {formik.errors.password}
+                      </div>
+                    ) : null}
                   </Form.Group>
                   <Form.Group id="confirmPassword" className="mb-4">
                     <Form.Label>Confirm Password</Form.Label>
@@ -51,15 +173,22 @@ export default () => {
                       <InputGroup.Text>
                         <FontAwesomeIcon icon={faUnlockAlt} />
                       </InputGroup.Text>
-                      <Form.Control required type="password" placeholder="Confirm Password" />
+                      <Form.Control
+                        type="password"
+                        placeholder="Confirm Password"
+                        name="confirmPassword"
+                        value={formik.values.confirmPassword}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
                     </InputGroup>
+                    {formik.touched.confirmPassword &&
+                    formik.errors.confirmPassword ? (
+                      <div className="text-danger">
+                        {formik.errors.confirmPassword}
+                      </div>
+                    ) : null}
                   </Form.Group>
-                  <FormCheck type="checkbox" className="d-flex mb-4">
-                    <FormCheck.Input required id="terms" className="me-2" />
-                    <FormCheck.Label htmlFor="terms">
-                      I agree to the <Card.Link>terms and conditions</Card.Link>
-                    </FormCheck.Label>
-                  </FormCheck>
 
                   <Button variant="primary" type="submit" className="w-100">
                     Sign up
@@ -70,20 +199,39 @@ export default () => {
                   <span className="fw-normal">or</span>
                 </div>
                 <div className="d-flex justify-content-center my-4">
-                  <Button variant="outline-light" className="btn-icon-only btn-pill text-facebook me-2">
+                  <GoogleButton
+                    type="light" // can be light or dark
+                    onClick={() => {
+                      console.log("Google button clicked");
+                    }}
+                  />
+                  {/* <Button
+                    variant="outline-light"
+                    className="btn-icon-only btn-pill text-facebook me-2"
+                  >
                     <FontAwesomeIcon icon={faFacebookF} />
                   </Button>
-                  <Button variant="outline-light" className="btn-icon-only btn-pill text-twitter me-2">
+                  <Button
+                    variant="outline-light"
+                    className="btn-icon-only btn-pill text-twitter me-2"
+                  >
                     <FontAwesomeIcon icon={faTwitter} />
                   </Button>
-                  <Button variant="outline-light" className="btn-icon-only btn-pil text-dark">
+                  <Button
+                    variant="outline-light"
+                    className="btn-icon-only btn-pil text-dark"
+                  >
                     <FontAwesomeIcon icon={faGithub} />
-                  </Button>
+                  </Button> */}
                 </div>
                 <div className="d-flex justify-content-center align-items-center mt-4">
                   <span className="fw-normal">
                     Already have an account?
-                    <Card.Link as={Link} to={Routes.Signin.path} className="fw-bold">
+                    <Card.Link
+                      as={Link}
+                      to={Routes.Signin.path}
+                      className="fw-bold"
+                    >
                       {` Login here `}
                     </Card.Link>
                   </span>
@@ -96,3 +244,5 @@ export default () => {
     </main>
   );
 };
+
+export default Signup;

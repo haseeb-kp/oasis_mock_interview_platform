@@ -1,8 +1,10 @@
-from django.urls import path
+from django.urls import re_path
 from . import views
 
 
 urlpatterns = [
-    path('login/', views.MyTokenObtainPairView.as_view(),name='token_obtain_pair'),
-    path('users/', views.UserList.as_view(), name='user-list')
+    re_path(r'^login/$',views.MyTokenObtainPairView.as_view()),
+    re_path(r'^users/$',views.UserList.as_view()),
+    re_path(r'^signup/$',views.signup.as_view()),
+    # re_path(r'^contractor/(?P<pk>.*)/$', views.contractor),
     ]
