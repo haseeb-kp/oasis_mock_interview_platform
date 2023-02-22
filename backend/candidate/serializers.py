@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from django.contrib.auth.models import User
 from .models import *
 from rest_framework_simplejwt.tokens import RefreshToken
 
@@ -12,7 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['id', 'email','first_name', 'name', 'phone_number']
+        fields = ['id', 'email','first_name', 'name', 'phone_number','password']
 
     def get_name(self,obj):
         name = obj.first_name
@@ -26,7 +25,7 @@ class UserSerializerWithToken(UserSerializer):
 
     class Meta:
         model = User
-        fields = ['id', '_id', 'email', 'name', 'isAdmin', 'token']
+        fields = ['id', 'email', 'first_name', 'phone_number', 'is_staff', 'token']
 
     def get_token(self, obj):
         token = RefreshToken.for_user(obj)

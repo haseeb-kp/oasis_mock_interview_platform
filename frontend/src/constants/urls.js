@@ -1,4 +1,4 @@
-export const baseUrl = "http://localhost:8000/";
+export const baseUrl = "";
 
 // urls
 export const signUpPost = "api/user_register";

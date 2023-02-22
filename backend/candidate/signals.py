@@ -4,7 +4,6 @@ from .models import CustomUser
 
 
 def updateUser( sender, instance, **kwargs):
-    print('triggered')
     user = instance
     if user.email != '':
         user.username = user.email

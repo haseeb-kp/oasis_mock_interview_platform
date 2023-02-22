@@ -1,7 +1,7 @@
 import React from "react";
 import { useFormik, Field } from "formik";
 import * as Yup from "yup";
-import "yup-phone";
+import { phone } from 'yup-phone'
 import GoogleButton from "react-google-button";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -36,9 +36,9 @@ const validationSchema = Yup.object().shape({
   name: Yup.string()
     .required("Name is required")
     .min(4, "must be at least 4 characters long"),
-  // phone: Yup.string()
-  //   .phone('IN',true,"Invalid Phone number")
-  //   .required(" Phone number is required"),
+    // phone: Yup.string()
+    // .phone('in', { strictMode: true })
+    // .required('Phone number is required'),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -205,24 +205,7 @@ const Signup = () => {
                       console.log("Google button clicked");
                     }}
                   />
-                  {/* <Button
-                    variant="outline-light"
-                    className="btn-icon-only btn-pill text-facebook me-2"
-                  >
-                    <FontAwesomeIcon icon={faFacebookF} />
-                  </Button>
-                  <Button
-                    variant="outline-light"
-                    className="btn-icon-only btn-pill text-twitter me-2"
-                  >
-                    <FontAwesomeIcon icon={faTwitter} />
-                  </Button>
-                  <Button
-                    variant="outline-light"
-                    className="btn-icon-only btn-pil text-dark"
-                  >
-                    <FontAwesomeIcon icon={faGithub} />
-                  </Button> */}
+                  
                 </div>
                 <div className="d-flex justify-content-center align-items-center mt-4">
                   <span className="fw-normal">
