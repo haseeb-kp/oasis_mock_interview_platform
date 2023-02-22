@@ -1,4 +1,4 @@
-export const baseUrl = "";
+export const baseUrl = "http://127.0.0.1:8000/";
 
 // urls
 export const signUpPost = "api/user_register";

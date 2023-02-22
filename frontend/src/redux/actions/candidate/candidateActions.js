@@ -23,7 +23,7 @@ export const login = (username, password) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://127.0.0.1:8000/api/candidate/login/",
+      "api/candidate/login/",
       { username, password },
       config
     );
