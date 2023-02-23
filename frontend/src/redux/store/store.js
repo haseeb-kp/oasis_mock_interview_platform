@@ -1,10 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
 // import { candidateLoginReducer } from "../reducers/candidate/candidateReducer";
-import candidateReducer, {candidateLoginSuccess} from '../reducers/candidate/candidateReducer'
+import candidateLoginReducer, {candidateLoginSuccess} from '../slices/candidate/candidateLoginSlice'
+import candidateRegisterReducer  from '../slices/candidate/candidateRegisterSlice'
 
 const store = configureStore({
   reducer: {
-    candidateLogin: candidateReducer,
+    candidateLogin: candidateLoginReducer,
+    candidateRegister: candidateRegisterReducer,
   },
 });
 

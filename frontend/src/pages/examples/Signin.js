@@ -1,33 +1,31 @@
 import React from "react";
-import { useFormik, Field } from "formik";
+import { useFormik } from "formik";
 import * as Yup from "yup";
-import  { useState, useEffect } from 'react';
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from '../../redux/actions/candidate/candidateActions'
+import { login } from "../../redux/actions/candidate/candidateActions";
+import { useHistory, Link } from "react-router-dom";
+import Loader from "../../components/common/loader";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import {
-  faAngleLeft,
   faEnvelope,
   faUnlockAlt,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  faFacebookF,
-  faGithub,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
+
 import {
   Col,
   Row,
   Form,
   Card,
   Button,
-  FormCheck,
   Container,
   InputGroup,
 } from "@themesberg/react-bootstrap";
-import { Link } from "react-router-dom";
 
 import { Routes } from "../../routes";
 import BgImage from "../../assets/img/illustrations/signin.svg";
@@ -40,8 +38,17 @@ const validationSchema = Yup.object().shape({
 });
 
 const Signin = () => {
-
+  const history = useHistory();
   const dispatch = useDispatch();
+
+  const candidateLogin = useSelector((state) => state.candidateLogin);
+  const { loading, candidateInfo, error } = candidateLogin;
+
+  useEffect(() => {
+    if (candidateInfo) {
+      history.push(Routes.DashboardOverview.path);
+    }
+  }, [candidateInfo]);
 
   const formik = useFormik({
     initialValues: {
@@ -50,16 +57,20 @@ const Signin = () => {
     },
     validationSchema,
     onSubmit: (values) => {
-      console.log(values);
 
-       dispatch(login(values.email, values.password));
+      dispatch(login(values.email, values.password));
       
-
     },
   });
+  if (error){
+    toast.error(`${error}`)
+  }
+  
 
   return (
     <main>
+      {error && <ToastContainer />}
+
       <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
         <Container>
           <Row
@@ -74,6 +85,7 @@ const Signin = () => {
                 <div className="text-center text-md-center mb-4 mt-md-0">
                   <h3 className="mb-0">Sign in to our platform</h3>
                 </div>
+
                 <Form onSubmit={formik.handleSubmit} className="mt-4">
                   <Form.Group id="email" className="mb-4">
                     <Form.Label>Email</Form.Label>
@@ -118,7 +130,7 @@ const Signin = () => {
                   </Form.Group>
 
                   <Button variant="primary" type="submit" className="w-100">
-                    Sign in
+                    {loading ? <Loader /> : "Sign in"}
                   </Button>
                 </Form>
                 <div className="d-flex justify-content-center align-items-center mt-4">

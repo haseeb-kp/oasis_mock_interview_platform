@@ -1,22 +1,21 @@
 import React from "react";
-import { useFormik, Field } from "formik";
+import { useFormik} from "formik";
 import * as Yup from "yup";
-import { phone } from 'yup-phone'
 import GoogleButton from "react-google-button";
+import { useEffect } from "react";
+import { register } from "../../redux/actions/candidate/candidateActions";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Loader from "../../components/common/loader";
+
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-  faAngleLeft,
   faEnvelope,
   faMobile,
   faUnlockAlt,
   faUser,
 } from "@fortawesome/free-solid-svg-icons";
-import {
-  faFacebookF,
-  faGithub,
-  faTwitter,
-} from "@fortawesome/free-brands-svg-icons";
 import {
   Col,
   Row,
@@ -27,7 +26,10 @@ import {
   Container,
   InputGroup,
 } from "@themesberg/react-bootstrap";
-import { Link } from "react-router-dom";
+import { useHistory, Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+
+
 
 import { Routes } from "../../routes";
 import BgImage from "../../assets/img/illustrations/signin.svg";
@@ -36,9 +38,9 @@ const validationSchema = Yup.object().shape({
   name: Yup.string()
     .required("Name is required")
     .min(4, "must be at least 4 characters long"),
-    // phone: Yup.string()
-    // .phone('in', { strictMode: true })
-    // .required('Phone number is required'),
+  phone: Yup.string()
+    .matches(/^\+?[1-9]\d{1,14}$/gm, 'Invalid phone number')
+    .required('Phone number is required'),
   email: Yup.string()
     .email("Invalid email address")
     .required("Email is required"),
@@ -51,6 +53,19 @@ const validationSchema = Yup.object().shape({
 });
 
 const Signup = () => {
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const candidateRegister = useSelector((state) => state.candidateRegister);
+  const { loading, candidateInfo, error } = candidateRegister;
+
+  useEffect(() => {
+    if (candidateInfo) {
+      history.push(Routes.DashboardOverview.path);
+    }
+  }, [candidateInfo]);
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -61,13 +76,19 @@ const Signup = () => {
     },
     validationSchema,
     onSubmit: (values) => {
+      console.log(values)
+      dispatch(register(values.email, values.phone, values.name, values.confirmPassword));
       
 
     },
   });
+  if (error){
+    toast.error(`${error}`)
+  }
 
   return (
     <main>
+      {error && <ToastContainer />}
       <section className="d-flex align-items-center my-5 mt-lg-6 mb-lg-5">
         <Container>
           <Row
@@ -109,7 +130,7 @@ const Signup = () => {
                     <Form.Label>Phone number</Form.Label>
                     <InputGroup>
                       <InputGroup.Text>
-                        <FontAwesomeIcon icon={faMobile} />
+                        +91
                       </InputGroup.Text>
                       <Form.Control
                         autoFocus
@@ -191,7 +212,7 @@ const Signup = () => {
                   </Form.Group>
 
                   <Button variant="primary" type="submit" className="w-100">
-                    Sign up
+                  {loading ? <Loader /> : "Sign UP"}
                   </Button>
                 </Form>
 

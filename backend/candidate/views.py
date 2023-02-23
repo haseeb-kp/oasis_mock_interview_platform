@@ -7,6 +7,8 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
+from django.db import IntegrityError
+from django.core.exceptions import ValidationError
 
 User = get_user_model()
 
@@ -53,6 +55,9 @@ class signup(CreateAPIView):
             )
             serializer = UserSerializer(user, many=False)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        except:
-            message = {'detail': 'email taken'}
+        except IntegrityError:
+            message = {'detail': 'Email address already exists'}
+            return Response(message, status=status.HTTP_400_BAD_REQUEST)
+        except ValidationError as e:
+            message = {'detail': str(e)}
             return Response(message, status=status.HTTP_400_BAD_REQUEST)

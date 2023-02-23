@@ -1,10 +1,3 @@
-import {
-  CANDIDATE_LOGIN_REQUEST,
-  CANDIDATE_LOGIN_SUCCESS,
-  CANDIDATE_LOGIN_FAIL,
-  CANDIDATE_LOGOUT,
-} from "../../../constants/candidateConstants";
-
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
