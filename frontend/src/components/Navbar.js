@@ -27,12 +27,12 @@ export default (props) => {
   const { loading, candidateInfo, error } = candidateLogin;
 
   useEffect(() => {
-    if (candidateInfo) {
-      history.push(Routes.DashboardOverview.path);
+    if (!candidateInfo) {
+      history.push(Routes.Signin.path);
     }
   }, [candidateInfo]);
   const logoutHandler = () =>{
-
+    dispatch(logout())
   }
   const [notifications, setNotifications] = useState(NOTIFICATIONS_DATA);
   const areNotificationsRead = notifications.reduce((acc, notif) => acc && notif.read, true);

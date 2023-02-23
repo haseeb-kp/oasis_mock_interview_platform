@@ -72,3 +72,8 @@ export const register = (email, phone_number, first_name, password) => async (di
   }
 };
 
+export const logout = () => (dispatch) =>{
+  localStorage.removeItem('candidateInfo')
+  dispatch(candidateLogout())
+}
+
