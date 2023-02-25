@@ -170,11 +170,11 @@ export default () => {
             </Navbar.Collapse>
             <Button
               as={HashLink}
-              to="#download"
+              to={Routes.Signin.path}
               variant="outline-white"
               className="ms-3"
             >
-              <FontAwesomeIcon icon={faUser} className="me-1" /> Login
+            <FontAwesomeIcon icon={faUser} className="me-1" /> Login
             </Button>
           </div>
         </Container>
@@ -233,7 +233,8 @@ export default () => {
                 style={{ objectFit: "cover", height: "16rem", width: "16rem" }}
                 src={candidate_image}
               />
-              <Button variant="light" size="sm" className="m-2">
+              <Button as={HashLink}
+                  to={Routes.Signup.path} variant="light" size="sm" className="m-2">
                 Candidate{" "}
                 <FontAwesomeIcon icon={faShareSquare} className="ms-2" />
               </Button>
@@ -245,7 +246,8 @@ export default () => {
                 style={{ objectFit: "cover", height: "16rem", width: "16rem" }}
                 src={interviewer_image}
               />
-              <Button variant="light" size="sm" className="m-2">
+              <Button as={HashLink}
+                  to={Routes.Signup.path} variant="light" size="sm" className="m-2">
                 Interviewer{" "}
                 <FontAwesomeIcon icon={faShareSquare} className="ms-2" />
               </Button>

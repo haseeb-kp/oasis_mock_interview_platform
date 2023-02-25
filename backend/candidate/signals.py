@@ -1,5 +1,5 @@
 from django.db.models.signals import pre_save
-from .models import CustomUser
+from .models import Candidate
 
 
 
@@ -9,4 +9,4 @@ def updateUser( sender, instance, **kwargs):
         user.username = user.email
          
 
-pre_save.connect(updateUser ,sender=CustomUser)
+pre_save.connect(updateUser ,sender=Candidate)

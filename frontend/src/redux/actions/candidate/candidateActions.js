@@ -12,7 +12,7 @@ import  {
   candidateRegisterFail,
 } from "../../slices/candidate/candidateRegisterSlice";
 
-export const login = (username, password) => async (dispatch) => {
+export const login = (email, password) => async (dispatch) => {
   try {
     dispatch(candidateLoginRequest());
 
@@ -24,7 +24,7 @@ export const login = (username, password) => async (dispatch) => {
 
     const { data } = await axios.post(
       candidate_login,
-      { username, password },
+      { email, password },
       config
     );
 
@@ -42,7 +42,7 @@ export const login = (username, password) => async (dispatch) => {
   }
 };
 
-export const register = (email, phone_number, first_name, password) => async (dispatch) => {
+export const register = (email, phone_number, name, password) => async (dispatch) => {
   try {
     dispatch(candidateRegisterRequest());
 
@@ -54,7 +54,7 @@ export const register = (email, phone_number, first_name, password) => async (di
 
     const { data } = await axios.post(
       candidate_signup,
-      { email, phone_number, first_name, password },
+      { email, phone_number, name, password },
       config
     );
 

@@ -46,7 +46,6 @@ INSTALLED_APPS = [
 
 ]
 
-AUTH_USER_MODEL = 'candidate.CustomUser'
 
 MIDDLEWARE = [
 
@@ -130,7 +129,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'oasis',
+        'NAME': 'oasis_project',
         'USER' : 'haseeb',
         'PASSWORD': 'password',
         'HOST':'localhost',

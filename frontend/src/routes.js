@@ -17,14 +17,14 @@ export const Routes = {
     NotFound: { path: "/404" },
     ServerError: { path: "/500" },
 
-    // docs
-    DocsOverview: { path: "/documentation/overview" },
-    DocsDownload: { path: "/documentation/download" },
-    DocsQuickStart: { path: "/documentation/quick-start" },
-    DocsLicense: { path: "/documentation/license" },
-    DocsFolderStructure: { path: "/documentation/folder-structure" },
-    DocsBuild: { path: "/documentation/build-tools" },
-    DocsChangelog: { path: "/documentation/changelog" },
+    // // docs
+    // DocsOverview: { path: "/documentation/overview" },
+    // DocsDownload: { path: "/documentation/download" },
+    // DocsQuickStart: { path: "/documentation/quick-start" },
+    // DocsLicense: { path: "/documentation/license" },
+    // DocsFolderStructure: { path: "/documentation/folder-structure" },
+    // DocsBuild: { path: "/documentation/build-tools" },
+    // DocsChangelog: { path: "/documentation/changelog" },
 
     // components
     Accordions: { path: "/components/accordions" },

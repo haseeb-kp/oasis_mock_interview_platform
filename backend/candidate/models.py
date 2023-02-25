@@ -1,16 +1,11 @@
+import uuid
 from django.db import models
-from django.contrib.auth.models import AbstractUser
 
+class Candidate(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+    name = models.CharField(max_length=256, null=True, blank=True)
+    email = models.CharField(max_length=256, null=True, blank=True, unique=True)
+    username = models.CharField(max_length=256, null=True, blank=True, unique=True)
+    phone_number = models.CharField(max_length=256, null=True, blank=True, unique=True)
+    password = models.CharField(max_length=256, null=True, blank=True)
 
-class CustomUser(AbstractUser):
-    
-    ROLE_CHOICES=[
-        ("CANDIDATE", "Candidate"),
-        ("INTERVIEWER", "Interviewer"),
-    ]
-
-    phone_number = models.CharField(max_length=20, unique=True,null=True)
-    role = models.CharField(max_length=15, choices=ROLE_CHOICES)
-
-    def __str__(self):
-        return self.username
