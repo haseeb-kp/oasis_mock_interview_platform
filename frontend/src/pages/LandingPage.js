@@ -1,6 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "../css/timeline.css";
 import {
+  faInstagram,
+  faLinkedinIn,
   faBootstrap,
   faGithub,
   faJs,
@@ -49,7 +52,10 @@ import {
   faFileCode,
   faDownload,
   faUser,
+  faShareSquare,
 } from "@fortawesome/free-solid-svg-icons";
+import { MDBCard, MDBCardBody, MDBContainer } from "mdb-react-ui-kit";
+import { isMobile } from "react-device-detect";
 
 import pages from "../data/pages";
 
@@ -160,8 +166,6 @@ export default () => {
                 >
                   Contact Us
                 </Nav.Link>
-                {/* <Nav.Link as={HashLink} to="#getting-started">Getting Started</Nav.Link>
-                <Nav.Link as={HashLink} to="#download">Upgrade to Pro</Nav.Link> */}
               </Nav>
             </Navbar.Collapse>
             <Button
@@ -175,11 +179,18 @@ export default () => {
           </div>
         </Container>
       </Navbar>
-      <section className="d-flex bg-white pl-4 pr-4 ">
-        <div className="col-md-6 my-auto">
-          <h2 className="text-center">
+      <section className="d-flex bg-white pl-4 pr-4 " id="home">
+        <div className="col-4 col-md-6 my-auto">
+          {isMobile ? (
+            <h6 className="text-center">
             Enhance Your Interview Skills With Oasis
-          </h2>
+          </h6>
+            
+          ) : (
+            <h4 className="text-center">
+              Enhance Your Interview Skills With Oasis
+            </h4>
+          )}
         </div>
         <div className="col-md-6">
           <Image src={landing} />
@@ -187,8 +198,10 @@ export default () => {
       </section>
       <section className="text-center mt-5 p-5" id="about">
         <h3>About Us</h3>
-        <div className="m-4 p-3 bg-success text-white rounded">
-          <p style={{ fontSize: "20px" }}>
+        {isMobile ?
+        (
+          <div className="col-sm-12 p-2 bg-success text-white rounded">
+          <p style={{ fontSize: "16px" }}>
             Are you looking to improve your interview skills and stand out to
             potential employers? Oasis offers mock interviews and personalized
             feedback to help you succeed. Our platform connects you with
@@ -198,41 +211,123 @@ export default () => {
             interview. Sign up today and start boosting your career prospects!
           </p>
         </div>
+        ):
+      (<div className="col-sm-12 m-4 p-3 bg-success text-white rounded">
+      <p style={{ fontSize: "20px" }}>
+        Are you looking to improve your interview skills and stand out to
+        potential employers? Oasis offers mock interviews and personalized
+        feedback to help you succeed. Our platform connects you with
+        experienced professionals who will simulate a real job interview and
+        provide constructive feedback on your performance. With Oasis,
+        you'll gain the confidence and skills you need to ace your next
+        interview. Sign up today and start boosting your career prospects!
+      </p>
+    </div>)}
       </section>
-      <section className="col-12 text-center mt-3 bg-white pt-3 w-98" id="about">
+      <section className=" text-center mt-3 bg-white pt-3" id="register">
         <h3>Onboard As</h3>
-        <div
-          className=" m-4 p-5 d-flex justify-content-between"
-          style={{ display: "flex", height: "400px", width: "100%" }}
-        >
-          <div className="col-md-4 rounded p-5">
-            <Image
-              style={{ objectFit: "cover", height: "100%", width: "auto" }}
-              src={candidate_image}
-            />
-            <Button>Candidate</Button>
+        <div className="d-flex flex-wrap justify-content-between p-4">
+          <div className="col-lg-4 col-md-6 mb-4">
+            <div className="rounded p-5">
+              <Image
+                style={{ objectFit: "cover", height: "16rem", width: "16rem" }}
+                src={candidate_image}
+              />
+              <Button variant="light" size="sm" className="m-2">
+                Candidate{" "}
+                <FontAwesomeIcon icon={faShareSquare} className="ms-2" />
+              </Button>
+            </div>
           </div>
-          <div className="col-md-4 rounded p-5">
-            <Image
-              style={{ objectFit: "cover", height: "102.8%", width: "auto" }}
-              src={interviewer_image}
-            />
-            <Button>Interviewer</Button>
+          <div className="col-lg-4 col-md-6 mb-4">
+            <div className="rounded p-5">
+              <Image
+                style={{ objectFit: "cover", height: "16rem", width: "16rem" }}
+                src={interviewer_image}
+              />
+              <Button variant="light" size="sm" className="m-2">
+                Interviewer{" "}
+                <FontAwesomeIcon icon={faShareSquare} className="ms-2" />
+              </Button>
+            </div>
           </div>
-          <div className="col-md-4 rounded p-5 ">
-            <Image
-              style={{ objectFit: "cover", height: "100%", width: "auto" }}
-              src={recruiter_image}
-            />
-            <Button>Recruiter</Button>
+          <div className="col-lg-4 col-md-6 mb-4">
+            <div className="rounded p-5 ">
+              <Image
+                style={{ objectFit: "cover", height: "16rem", width: "16rem" }}
+                src={recruiter_image}
+              />
+              <OverlayTrigger
+                trigger={["hover", "focus"]}
+                overlay={<Tooltip>Coming Soon..</Tooltip>}
+              >
+                <Button variant="light" size="sm" className="m-2">
+                  Recruiter{" "}
+                  <FontAwesomeIcon icon={faShareSquare} className="ms-2" />
+                </Button>
+              </OverlayTrigger>
+            </div>
           </div>
         </div>
       </section>
-
-      <section className="section section-sm pt-0" id="pages">
-        <Container></Container>
+      <section className="section text-center mt-3  pt-5" id="steps">
+        <h3>Steps Involved</h3>
+        <MDBContainer
+          fluid
+          className="py-5 pt-3"
+          style={{ backgroundColor: "#F0F2F5" }}
+        >
+          <div className="main-timeline">
+            <div className="timeline left">
+              <MDBCard>
+                <MDBCardBody className="p-4">
+                  <h4>Create an account</h4>
+                  <p className="mb-0">
+                    Sign up with your email; verify it & you’re ready to get
+                    started on a life-changing journey.
+                  </p>
+                </MDBCardBody>
+              </MDBCard>
+            </div>
+            <div className="timeline right">
+              <MDBCard>
+                <MDBCardBody className="p-4">
+                  <h4>Complete profile</h4>
+                  <p className="mb-0">
+                    Complete your profile before scheduling an interview so your
+                    interviewer can thoroughly analyse your profile
+                  </p>
+                </MDBCardBody>
+              </MDBCard>
+            </div>
+            <div className="timeline left">
+              <MDBCard>
+                <MDBCardBody className="p-4">
+                  <h4>Schedule interview</h4>
+                  <p className="mb-0">
+                    Choose an available slot that fits your schedule & get a
+                    confirmation via e-mail .
+                  </p>
+                </MDBCardBody>
+              </MDBCard>
+            </div>
+            <div className="timeline right">
+              <MDBCard>
+                <MDBCardBody className="p-4">
+                  <h4>Performance feedback</h4>
+                  <p className="mb-0">
+                    Get comprehensive feedback on your performance, tips on
+                    improving weaker areas & a link to the recording of your
+                    interview.
+                  </p>
+                </MDBCardBody>
+              </MDBCard>
+            </div>
+          </div>
+        </MDBContainer>
       </section>
-      <footer className="footer py-6 bg-dark text-white">
+
+      <footer className="footer py-6 bg-tertiary text-white" id="contact">
         <Container>
           <Row>
             <Col md={4}>
@@ -241,71 +336,40 @@ export default () => {
                 to="#home"
                 className="me-lg-3 mb-3 d-flex align-items-center"
               >
-                <Image src={ReactHero} />
-                <span className="ms-2 brand-text">Volt React</span>
+                <span className="ms-2 brand-text text-white">Oasis</span>
               </Navbar.Brand>
               <p>
-                Volt React is a free and open source admin dashboard template
-                powered by React.js and Bootstrap 5.
+                This is a portfolio project of haseeb. Thank You for visiting :)
               </p>
             </Col>
 
-            <Col xs={6} md={2} className="mb-5 mb-lg-0">
-              <span className="h5">Other</span>
-              <ul className="links-vertical mt-2">
-                <li>
-                  <Card.Link
-                    as={Link}
-                    to={Routes.DocsQuickStart.path}
-                    target="_blank"
-                  >
-                    Getting started
-                  </Card.Link>
-                </li>
-                <li>
-                  <Card.Link
-                    as={Link}
-                    to={Routes.DocsChangelog.path}
-                    target="_blank"
-                  >
-                    Changelog
-                  </Card.Link>
-                </li>
-                <li>
-                  <Card.Link
-                    target="_blank"
-                    href="https://themesberg.com/licensing"
-                  >
-                    License
-                  </Card.Link>
-                </li>
-              </ul>
-            </Col>
+            <Col xs={6} md={2} className="mb-5 mb-lg-0"></Col>
+            <Col xs={6} md={2} className="mb-5 mb-lg-0"></Col>
             <Col xs={12} md={4} className="mb-5 mb-lg-0">
-              <span className="h5 mb-3 d-block">Subscribe</span>
-              <form action="#">
-                <div className="form-row mb-2">
-                  <div className="col-12">
-                    <input
-                      type="email"
-                      className="form-control mb-2"
-                      placeholder="example@company.com"
-                      name="email"
-                      aria-label="Subscribe form"
-                      required
-                    />
-                  </div>
-                  <div className="col-12">
-                    <button
-                      type="submit"
-                      className="btn btn-secondary text-dark shadow-soft btn-block"
-                      data-loading-text="Sending"
-                    >
-                      <span>Subscribe</span>
-                    </button>
-                  </div>
+              <span className="h5 mb-3 d-block">Get in touch</span>
+              <div className="d-flex">
+                <div className="m-3 ">
+                  <a
+                    href="https://www.instagram.com/haseeb_k_p"
+                    target="_blank"
+                  >
+                    <FontAwesomeIcon icon={faInstagram} />
+                  </a>
                 </div>
-              </form>
+                <div className="m-3">
+                  <a
+                    href="https://www.linkedin.com/in/haseebkph/"
+                    target="_blank"
+                  >
+                    <FontAwesomeIcon icon={faLinkedinIn} />
+                  </a>
+                </div>
+                <div className="m-3">
+                  <a href="https://github.com/haseeb-kp" target="_blank">
+                    <FontAwesomeIcon icon={faGithub} />
+                  </a>
+                </div>
+              </div>
             </Col>
           </Row>
         </Container>

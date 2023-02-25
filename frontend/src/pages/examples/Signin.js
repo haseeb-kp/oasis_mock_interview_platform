@@ -48,6 +48,7 @@ const Signin = () => {
     if (candidateInfo) {
       history.push(Routes.DashboardOverview.path);
     }
+    
   }, [candidateInfo]);
 
   const formik = useFormik({
@@ -63,8 +64,10 @@ const Signin = () => {
     },
   });
   if (error){
-    toast.error(`${error}`)
-  }
+      console.log(error)
+      toast.error(`${error}`)
+      dispatch()
+    }
   
 
   return (
