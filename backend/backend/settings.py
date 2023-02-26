@@ -188,3 +188,9 @@ MEDIA_ROOT = 'static/images'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 CORS_ALLOW_ALL_ORIGINS = True
+
+AUTHENTICATION_BACKENDS = [
+    'helpers.custom_backend.CustomModelBackend',
+    'django.contrib.auth.backends.ModelBackend',
+]
+

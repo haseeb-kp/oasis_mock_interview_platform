@@ -17,10 +17,8 @@ class candidate_serializer_with_token(candidate_serializer):
 
     class Meta:
         model = Candidate
-        fields = ['id', 'email', 'first_name', 'phone_number', 'token']
+        fields = ['id', 'email', 'name', 'phone_number', 'token']
 
     def get_token(self, obj):
-        print("guyguyg")
         token = RefreshToken.for_user(obj)
-        print(token)
         return str(token.access_token)
