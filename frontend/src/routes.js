@@ -16,6 +16,9 @@ export const Routes = {
     Lock: { path: "/lock" },
     NotFound: { path: "/404" },
     ServerError: { path: "/500" },
+    CandidateSignup: { path: "/candidate-sign-up" },
+    InterviewerSignup: { path: "/interviewer-sign-up" },
+
 
     // // docs
     // DocsOverview: { path: "/documentation/overview" },

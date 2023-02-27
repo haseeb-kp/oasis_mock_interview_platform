@@ -38,12 +38,12 @@ export default [
         "image": SignInImg,
         "link": Routes.Signin
     },
-    {
-        "id": 5,
-        "name": "Sign Up",
-        "image": SignUpImg,
-        "link": Routes.Signup.path
-    },
+    // {
+    //     "id": 5,
+    //     "name": "Sign Up",
+    //     "image": SignUpImg,
+    //     "link": Routes.Signup.path
+    // },
     {
         "id": 6,
         "name": "Lock",

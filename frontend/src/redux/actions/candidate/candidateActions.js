@@ -12,7 +12,7 @@ import  {
   candidateRegisterFail,
 } from "../../slices/candidate/candidateRegisterSlice";
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (username, password) => async (dispatch) => {
   try {
     dispatch(candidateLoginRequest());
 
@@ -24,13 +24,13 @@ export const login = (email, password) => async (dispatch) => {
 
     const { data } = await axios.post(
       candidate_login,
-      { email, password },
+      { username, password },
       config
     );
 
     dispatch(candidateLoginSuccess(data));
 
-    localStorage.setItem("candidateInfo", JSON.stringify(data));
+    localStorage.setItem("token", JSON.stringify(data.token));
   } catch (error) {
     dispatch(
       candidateLoginFail(
@@ -42,7 +42,7 @@ export const login = (email, password) => async (dispatch) => {
   }
 };
 
-export const register = (email, phone_number, name, password) => async (dispatch) => {
+export const register = (username, phone_number, name, password) => async (dispatch) => {
   try {
     dispatch(candidateRegisterRequest());
 
@@ -54,13 +54,13 @@ export const register = (email, phone_number, name, password) => async (dispatch
 
     const { data } = await axios.post(
       candidate_signup,
-      { email, phone_number, name, password },
+      { username, phone_number, name, password },
       config
     );
 
     dispatch(candidateRegisterSuccess(data));
 
-    localStorage.setItem("candidateInfo", JSON.stringify(data));
+    localStorage.setItem("token", JSON.stringify(data.token));
   } catch (error) {
     dispatch(
       candidateRegisterFail(

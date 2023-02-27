@@ -1,21 +1,16 @@
 from django.contrib.auth.backends import BaseBackend
-from candidate.models import Candidate
 from interviewer.models import Interviewer
+from rest_framework.exceptions import AuthenticationFailed
 
-class CustomModelBackend(BaseBackend):
+class InterviewerModelBackend(BaseBackend):
     def authenticate(self, request, username=None, password=None, **kwargs):
-        try:
-            candidate = Candidate.objects.get(email=username)
-            if candidate.check_password(password):
-                return candidate
-        except Candidate.DoesNotExist:
-            pass
-
+        print("enterd in interviewer")
         try:
             interviewer = Interviewer.objects.get(email=username)
             if interviewer.check_password(password):
                 return interviewer
         except Interviewer.DoesNotExist:
-            pass
+            raise AuthenticationFailed('Invalid email or password')
+            
 
         return None

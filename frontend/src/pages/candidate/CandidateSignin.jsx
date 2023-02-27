@@ -37,7 +37,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string().required("Password is required"),
 });
 
-const Signin = () => {
+const CandidateSignin = () => {
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -57,25 +57,16 @@ const Signin = () => {
       password: "",
     },
     validationSchema,
-    onSubmit: async (values) => {
+    onSubmit: (values) => {
 
-      await dispatch(login(values.email, values.password));
-      if (error){
-        console.log(error)
-        toast.error(`${error}`)
-      }
+      dispatch(login(values.email, values.password));
       
     },
   });
-  // if (error){
-  //     console.log(error)
-  //     toast.error(`${error}`)
-  //   }
-  // const generateError = error => {
-  //   toast.error(error, {
-  //       position: "bottom-right",
-  //   })
-// }
+  if (error){
+      console.log(error)
+      toast.error(`${error}`)
+    }
   
 
   return (
@@ -165,4 +156,4 @@ const Signin = () => {
   );
 };
 
-export default Signin;
+export default CandidateSignin;

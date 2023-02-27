@@ -234,7 +234,7 @@ export default () => {
                 src={candidate_image}
               />
               <Button as={HashLink}
-                  to={Routes.Signup.path} variant="light" size="sm" className="m-2">
+                  to={Routes.CandidateSignup.path} variant="light" size="sm" className="m-2">
                 Candidate{" "}
                 <FontAwesomeIcon icon={faShareSquare} className="ms-2" />
               </Button>
@@ -247,7 +247,7 @@ export default () => {
                 src={interviewer_image}
               />
               <Button as={HashLink}
-                  to={Routes.Signup.path} variant="light" size="sm" className="m-2">
+                  to={Routes.InterviewerSignup.path} variant="light" size="sm" className="m-2">
                 Interviewer{" "}
                 <FontAwesomeIcon icon={faShareSquare} className="ms-2" />
               </Button>

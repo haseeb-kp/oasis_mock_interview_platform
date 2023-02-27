@@ -10,12 +10,13 @@ import Transactions from "./Transactions";
 import Settings from "./Settings";
 import BootstrapTables from "./tables/BootstrapTables";
 import Signin from "./examples/Signin";
-import Signup from "./examples/Signup";
 import ForgotPassword from "./examples/ForgotPassword";
 import ResetPassword from "./examples/ResetPassword";
 import Lock from "./examples/Lock";
 import NotFoundPage from "./examples/NotFound";
 import ServerError from "./examples/ServerError";
+import CandidateSignup from './candidate/CandidateSignup';
+import InterviewerSignup from './interviewer/InterviewerSignup';
 
 // documentation pages
 // import DocsOverview from "./documentation/DocsOverview";
@@ -102,7 +103,8 @@ export default () => (
   <Switch>
     <RouteWithLoader exact path={Routes.Presentation.path} component={Presentation} />
     <RouteWithLoader exact path={Routes.Signin.path} component={Signin} />
-    <RouteWithLoader exact path={Routes.Signup.path} component={Signup} />
+    <RouteWithLoader exact path={Routes.CandidateSignup.path} component={CandidateSignup} />
+    <RouteWithLoader exact path={Routes.InterviewerSignup.path} component={InterviewerSignup} />
     <RouteWithLoader exact path={Routes.ForgotPassword.path} component={ForgotPassword} />
     <RouteWithLoader exact path={Routes.ResetPassword.path} component={ResetPassword} />
     <RouteWithLoader exact path={Routes.Lock.path} component={Lock} />

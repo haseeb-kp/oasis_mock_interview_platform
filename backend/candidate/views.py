@@ -52,8 +52,7 @@ class UserList(ListAPIView):
     queryset = Candidate.objects.all()
     serializer_class = candidate_serializer
 
-
-class signup(CreateAPIView):
+class Signup(CreateAPIView):
     permission_classes = [AllowAny]
     queryset = Candidate.objects.all()
     serializer_class = candidate_serializer

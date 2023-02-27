@@ -30,6 +30,7 @@ export default (props) => {
   const logoutHandler = () =>{
     dispatch(logout())
   }
+
   // const [notifications, setNotifications] = useState(NOTIFICATIONS_DATA);
   // const areNotificationsRead = notifications.reduce((acc, notif) => acc && notif.read, true);
 
