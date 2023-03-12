@@ -4,21 +4,24 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 
 
-class interviewer_serializer(serializers.ModelSerializer):
+class InterviewerSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Interviewer
         fields = ['id', 'email', 'name','linkedin_id', 'phone_number','password']
 
+
     
 
-class interviewer_serializer_with_token(interviewer_serializer):
+class InterviewerSerializerWithToken(InterviewerSerializer):
 
     token = serializers.SerializerMethodField(read_only=True)
 
     class Meta:
         model = Interviewer
         fields = ['id', 'email', 'name','linkedin_id', 'phone_number', 'token']
+
+
 
     def get_token(self, obj):
         token = RefreshToken.for_user(obj)

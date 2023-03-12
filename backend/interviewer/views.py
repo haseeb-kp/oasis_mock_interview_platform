@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-from .serializers import interviewer_serializer, interviewer_serializer_with_token
+from .serializers import InterviewerSerializer, InterviewerSerializerWithToken
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.response import Response
@@ -14,6 +14,11 @@ from helpers.interviewer_custom_backend import InterviewerModelBackend
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    class Meta:
+        ref_name = "InterviewerTokenObtainPair"
+        
+
     '''
     generate token pairs (access and refresh tokens) when a user logs in.
     '''
@@ -25,7 +30,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return : token merged with response data
         '''
         data = super().validate(attrs)
-        serializer = interviewer_serializer_with_token(self.user)
+        serializer = InterviewerSerializerWithToken(self.user)
         data.update(serializer.data)
         return data
 
@@ -52,7 +57,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 class Signup(CreateAPIView):
     permission_classes = [AllowAny]
     queryset = Interviewer.objects.all()
-    serializer_class = interviewer_serializer
+    serializer_class = InterviewerSerializer
 
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -64,7 +69,7 @@ class Signup(CreateAPIView):
                 phone_number = data['phone_number'],
                 password = make_password(data['password'])
             )
-            serializer = interviewer_serializer(user, many=False)
+            serializer = InterviewerSerializer(user, many=False)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except IntegrityError:
             message = {'detail': 'Email address already exists'}

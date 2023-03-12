@@ -11,7 +11,7 @@ class Candidate(models.Model):
     phone_number = models.CharField(max_length=256, null=True, blank=True, unique=True)
     password = models.CharField(max_length=256, null=True, blank=True)
     is_active = models.BooleanField(default=True, null=True, blank=True)
-    is_interviewer = models.BooleanField(default=True, null=True, blank=True)
+    is_candidate = models.BooleanField(default=True, null=True, blank=True)
 
     def check_password(self, raw_password):
         """

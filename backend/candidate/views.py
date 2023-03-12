@@ -1,6 +1,6 @@
 from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, AllowAny
-from .serializers import candidate_serializer, candidate_serializer_with_token
+from .serializers import CandidateSerializer, CandidateSerializerWithToken
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 from rest_framework.response import Response
@@ -14,6 +14,10 @@ from helpers.custom_backend import CustomModelBackend
 
 
 class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
+
+    class Meta:
+        ref_name = "CandidateTokenObtainPair"
+        
     '''
     generate token pairs (access and refresh tokens) when a user logs in.
     '''
@@ -25,7 +29,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         return : token merged with response data
         '''
         data = super().validate(attrs)
-        serializer = candidate_serializer_with_token(self.user)
+        serializer = CandidateSerializerWithToken(self.user)
         data.update(serializer.data)
         return data
 
@@ -50,12 +54,12 @@ class MyTokenObtainPairView(TokenObtainPairView):
 class UserList(ListAPIView):
     # permission_classes = [IsAdminUser]
     queryset = Candidate.objects.all()
-    serializer_class = candidate_serializer
+    serializer_class = CandidateSerializer
 
 class Signup(CreateAPIView):
     permission_classes = [AllowAny]
     queryset = Candidate.objects.all()
-    serializer_class = candidate_serializer
+    serializer_class = CandidateSerializer
 
     def create(self, request, *args, **kwargs):
         data = request.data
@@ -66,7 +70,7 @@ class Signup(CreateAPIView):
                 phone_number = data['phone_number'],
                 password = make_password(data['password'])
             )
-            serializer = candidate_serializer(user, many=False)
+            serializer = CandidateSerializer(user, many=False)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         except IntegrityError:
             message = {'detail': 'Email address already exists'}
