@@ -17,7 +17,7 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
 
     class Meta:
         ref_name = "CandidateTokenObtainPair"
-        
+
     '''
     generate token pairs (access and refresh tokens) when a user logs in.
     '''
@@ -52,7 +52,7 @@ class MyTokenObtainPairView(TokenObtainPairView):
 
 
 class UserList(ListAPIView):
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsAuthenticated]
     queryset = Candidate.objects.all()
     serializer_class = CandidateSerializer
 
